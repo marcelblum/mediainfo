@@ -61,7 +61,7 @@ export = async function MediaInfo(path: PathLike): Promise<MediaInfoResponse> {
       } catch(err) {
         console.log(err.message);
         console.log(err);
-        resolve({});
+        resolve();
         return {};
       }
 
