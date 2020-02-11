@@ -53,10 +53,17 @@ export = async function MediaInfo(path: PathLike): Promise<MediaInfoResponse> {
     });
 
     stream.on('close', () => {
-      const newstream = createReadStream(path, {
-        highWaterMark: 1024 * 1024,
-        start: seekTo,
-      });
+      try {
+        const newstream = createReadStream(path, {
+          highWaterMark: 1024 * 1024,
+          start: seekTo,
+        });
+      } catch(err) {
+        console.log(err.message);
+        console.log(err);
+        resolve({});
+        return {};
+      }
 
       newstream.on('data', (chunk) => {
         MI.Open_Buffer_Continue(chunk);
